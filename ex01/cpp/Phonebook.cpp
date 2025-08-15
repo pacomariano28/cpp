@@ -21,18 +21,21 @@ static std::string format_field(const std::string& str) {
 }
 
 void	PhoneBook::addContact(const Contact& newContact) {
-	__contacts[__contactCount % 8] = newContact;
-	__contactCount++;
+    __contacts[__contactCount % 8] = newContact;
+    if (__contactCount < 8)
+        __contactCount++;
+    else
+        __contactCount++; // sigue aumentando para el índice circular
 }
 
-Contact PhoneBook::getContact(int index) const {
-	if (index < (__contactCount % 8) && index >= 0)
-		return (__contacts[index]);
-	return(Contact());
+Contact PhoneBook::getContact(size_t index) const {
+    if (index < getCount())
+        return (__contacts[index]);
+    return(Contact());
 }
 
 size_t		PhoneBook::getCount() const {
-    return (__contactCount % 8);
+    return (__contactCount < 8 ? __contactCount : 8);
 }
 
 void	PhoneBook::showContacts() const {
@@ -44,19 +47,15 @@ void	PhoneBook::showContacts() const {
 
     std::cout << std::endl;
     std::cout << "\033[1;36m┌──────────┬──────────┬──────────┬──────────┐\033[0m" << std::endl;
-    std::cout << "\033[1;36m│\033[1;33m   Index   \033[1;36m│\033[1;33m First Name\033[1;36m│\033[1;33m Last Name \033[1;36m│\033[1;33m Nickname  \033[1;36m│\033[0m" << std::endl;
+    std::cout << "\033[1;36m│\033[1;33m   Index  \033[1;36m│\033[1;33mFirst Name\033[1;36m│\033[1;33mLast Name \033[1;36m│\033[1;33mNickname  \033[1;36m│\033[0m" << std::endl;
     std::cout << "\033[1;36m├──────────┼──────────┼──────────┼──────────┤\033[0m" << std::endl;
 
-    if (end == 0) {
-        std::cout << "\033[1;36m│\033[1;31m                  No contacts found                  \033[1;36m│\033[0m" << std::endl;
-    } else {
-        while (i < end) {
-            std::cout << "\033[1;36m│\033[1;37m" << std::setw(10) << i + 1 << "\033[1;36m│\033[1;37m"
-                << std::setw(10) << format_field(__contacts[i].getFirstName()) << "\033[1;36m│\033[1;37m"
-                << std::setw(10) << format_field(__contacts[i].getLastName()) << "\033[1;36m│\033[1;37m"
-                << std::setw(10) << format_field(__contacts[i].getNickname()) << "\033[1;36m│\033[0m" << std::endl;
-            i++;
-        }
+    while (i < end) {
+        std::cout << "\033[1;36m│\033[1;37m" << std::setw(10) << i + 1 << "\033[1;36m│\033[1;37m"
+            << std::setw(10) << format_field(__contacts[i].getFirstName()) << "\033[1;36m│\033[1;37m"
+            << std::setw(10) << format_field(__contacts[i].getLastName()) << "\033[1;36m│\033[1;37m"
+            << std::setw(10) << format_field(__contacts[i].getNickname()) << "\033[1;36m│\033[0m" << std::endl;
+        i++;
     }
     
     std::cout << "\033[1;36m└──────────┴──────────┴──────────┴──────────┘\033[0m" << std::endl;

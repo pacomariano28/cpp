@@ -14,6 +14,7 @@
 #define LIB_HPP
 
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <cstdlib>
 #include "Contact.hpp"

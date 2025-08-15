@@ -26,7 +26,7 @@ public:
 	PhoneBook();
 
 	void	addContact(const Contact& newContact);
-	Contact	getContact(int index) const;
+	Contact	getContact(size_t index) const;
 	size_t	getCount() const;
 	void	showContacts() const;
 };

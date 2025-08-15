@@ -63,11 +63,12 @@ void Contact::show() const {
     const std::string white_normal = "\033[0;37m";
     const std::string reset = "\033[0m"; 
 
+	std::cout << std::endl;
     std::cout << yellow_bold << "Name:" << reset << " " << white_normal << __firstName << reset << std::endl;
     std::cout << yellow_bold << "Last Name:" << reset << " " << white_normal << __lastName << reset << std::endl;
     std::cout << yellow_bold << "Nickname:" << reset << " " << white_normal << __nickname << reset << std::endl;
     std::cout << yellow_bold << "Phone Number:" << reset << " " << white_normal << __phoneNumber << reset << std::endl;
     std::cout << yellow_bold << "Darkest Secret:" << reset << " " << white_normal << __darkestSecret << reset << std::endl;
-	std::cout << "\n";
+	std::cout << std::endl;
 }
 
