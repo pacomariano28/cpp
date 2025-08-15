@@ -39,10 +39,10 @@ void	search(PhoneBook &myPhoneBook) {
         get_input(option);
 
         if (notDigit(option)) {
-            std::cout << "\033[1;31m\nError: index must be a number.\033[0m" << std::endl;
+            std::cout << "\033[1;31m\nError: index must be a positive number.\033[0m" << std::endl;
             continue;
         }
-
+.
         std::istringstream iss(option);
         iss >> contactIndex;
 
