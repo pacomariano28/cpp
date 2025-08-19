@@ -42,7 +42,7 @@ void	search(PhoneBook &myPhoneBook) {
             std::cout << "\033[1;31m\nError: index must be a positive number.\033[0m" << std::endl;
             continue;
         }
-.
+
         std::istringstream iss(option);
         iss >> contactIndex;
 
