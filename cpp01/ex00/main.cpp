@@ -1,4 +1,4 @@
-#include "Zombie.hpp"
+#include "../hpp/Zombie.hpp"
 
 int main(void) {
     Zombie* ara = newZombie("ara");
