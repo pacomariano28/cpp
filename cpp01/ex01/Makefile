@@ -3,7 +3,7 @@
 # =================== #
 
 NAME = Zombie
-COMPILE = g++
+COMPILE = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98 -Ihpp
 OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
 

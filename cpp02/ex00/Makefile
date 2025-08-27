@@ -1,15 +1,22 @@
+# =================== #
 #     VARIABLES       #
+# =================== #
 
-NAME = megaphone
+NAME = Orthodox
 COMPILE = c++
-FLAGS = -std=c++98 #-Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -std=c++98 -Ihpp
 OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
 
+# ================== #
 #      SOURCES       #
+# ================== #
 
-SRC = megaphone.cpp
+SRC =	main.cpp \
+		Fixed/Fixed.cpp
 
+# ================= #
 #     TARGETS       #
+# ================= #
 
 all: $(NAME)
 
