@@ -6,7 +6,7 @@
 /*   By: frmarian <frmarian@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 11:16:43 by frmarian          #+#    #+#             */
-/*   Updated: 2025/08/14 11:51:27 by frmarian         ###   ########.fr       */
+/*   Updated: 2025/08/28 11:28:25 by frmarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void create_contact(Contact &newContact) {
     std::string firstName, lastName, nickname, phoneNumber, darkestSecret;
 
     firstName_msg();
-    process_data(newContact, &Contact::setFirstName, firstName);
+	process_data(newContact, &Contact::setFirstName, firstName);
 
     lastName_msg();
     process_data(newContact, &Contact::setLastName, lastName);
