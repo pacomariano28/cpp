@@ -4,7 +4,7 @@
 
 NAME = Orthodox
 COMPILE = c++
-FLAGS = -Wall -Wextra -Werror -std=c++98 -Ihpp
+FLAGS = -std=c++98 -Ihpp #-Werror -Wall -Wextra
 OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
 
 # ================== #
