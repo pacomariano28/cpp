@@ -2,7 +2,7 @@
 #     VARIABLES       #
 # =================== #
 
-NAME = Orthodox
+NAME = Fragtrap
 COMPILE = c++
 FLAGS = -std=c++98 -Ihpp -Werror -Wall -Wextra
 OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
@@ -12,7 +12,8 @@ OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
 # ================== #
 
 SRC =	main.cpp \
-		Fixed/Fixed.cpp
+		ClapTrap/ClapTrap.cpp \
+		FragTrap/FragTrap.cpp
 
 # ================= #
 #     TARGETS       #
