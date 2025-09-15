@@ -17,6 +17,7 @@ SRC =	main.cpp \
 		Dog/Dog.cpp \
 		Cat/Cat.cpp \
 		WrongCat/WrongCat.cpp \
+		Brain/Brain.cpp
 
 # ================= #
 #     TARGETS       #
