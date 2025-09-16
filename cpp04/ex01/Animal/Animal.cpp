@@ -16,7 +16,7 @@ Animal::Animal(const Animal &other) {
 Animal& Animal::operator=(const Animal &other) {
 	if (this != &other)
 		__type = other.__type;
-	std::cout << __type << "is here thanks to = operator!" << std::endl;
+	std::cout << __type << " is here thanks to = operator!" << std::endl;
 	return *this;
 }
 

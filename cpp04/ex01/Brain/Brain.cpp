@@ -15,9 +15,7 @@ Brain& Brain::operator=(Brain &other) {
 	return *this;
 }
 
-Brain::~Brain(void) {
-	delete [] __ideas;
-}
+Brain::~Brain(void) {}
 
 std::string Brain::getIdea(int index) const {
     if (index < 0 || index >= 100)

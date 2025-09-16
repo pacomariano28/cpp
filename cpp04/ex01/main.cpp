@@ -1,9 +1,9 @@
-#include "Animal.hpp"
-#include "Dog.hpp"
-#include "Cat.hpp"
+#include "Animal/Animal.hpp"
+#include "Dog/Dog.hpp"
+#include "Cat/Cat.hpp"
 
 int main() {
-    const int size = 4;
+    const int size = 51;
     Animal* animals[size];
 
     // Creamos mitad Dogs y mitad Cats
