@@ -11,7 +11,7 @@ int main() {
 	paco.makeSound(); 
 	*/
 
-	Animal *paco = new Dog(); 
+	Dog *paco = new Dog(); 
 	paco->makeSound();
 
 	delete paco;
