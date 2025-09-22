@@ -14,7 +14,7 @@ class Bureaucrat {
 		static	int	validateGrade(int grade) {
 			if (grade < 1)
 				throw GradeTooHighException();
-			
+
 			if (grade > 150)
 				throw GradeTooLowException();
 			
