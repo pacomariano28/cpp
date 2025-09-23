@@ -1,5 +1,5 @@
 #include "AForm.hpp"
-#include "../Bureaucrat/Bureaucrat.hpp"
+
 
 AForm::AForm(void) : __name("Undefined"), __isSigned(false), __gradeToSign(100), __gradeToExecute(20) {
     std::cout << "AForm " << __name << " created." << std::endl;
@@ -21,19 +21,21 @@ AForm::~AForm(void) {
     std::cout << "AForm " << __name << " destroyed." << std::endl;
 }
 
-// --------------------------------------------------------------------------------------------------
+// GETTERS -------------------------------------------------------------------------------------------
 
 const std::string& AForm::getName(void) const {
     return __name;
 }
 
-const int& AForm::getGradeToSign (void) const {
+const int AForm::getGradeToSign (void) const {
     return __gradeToSign;
 }
 
-const int& AForm::getGradeToExecute (void) const {
+const int AForm::getGradeToExecute (void) const {
     return __gradeToExecute;
 }
+
+//  METHODS -----------------------------------------------------------------------------------
 
 void		AForm::beSigned(const Bureaucrat& b) {
     if (b.getGrade() <= __gradeToSign)
@@ -42,9 +44,23 @@ void		AForm::beSigned(const Bureaucrat& b) {
         throw GradeTooLowException();
 }
 
-// --------------------------------------------------------------------------------------------------
+void		AForm::checkExecutable(Bureaucrat const & executor) const {
+	if (!__isSigned)
+		throw FormNotSignedException();
+	if (executor.getGrade() > __gradeToExecute)
+		throw GradeTooLowException();
+}
+
+bool		AForm::getIsSigned() const {
+	return __isSigned;
+}
+
+// FUNCTIONS ------------------------------------------------------------------------------------------
 
 std::ostream& operator<<(std::ostream& out, const AForm& f) {
-    out << f.getName() << " , AForm created with min " << f.getGradeToSign() << " grade to sign.";
+    out << "Form: " << f.getName()
+        << " | Signed: " << (f.getIsSigned() ? "yes" : "no")
+        << " | Grade to sign: " << f.getGradeToSign()
+        << " | Grade to execute: " << f.getGradeToExecute();
     return out;
 }

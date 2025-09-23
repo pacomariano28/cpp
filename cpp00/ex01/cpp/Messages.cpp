@@ -6,7 +6,7 @@
 /*   By: frmarian <frmarian@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 11:17:29 by frmarian          #+#    #+#             */
-/*   Updated: 2025/08/14 13:46:19 by frmarian         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:07:49 by frmarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	add_msg() {
     std::cout << "\033[1;36m" << "╚════════════════════════════════════════╝" << "\033[0m" << std::endl;
     std::cout << "\n";
     std::cout << "\033[1;32m" << "📞 Let's create a new contact for your phonebook!" << "\033[0m" << std::endl;
-    std::cout << "\033[1;37m" << "Please fill in the following information:" << "\033[0m" << std::endl;
+    std::cout << "\033[1;37m" << "Please fill in the following inAFormation:" << "\033[0m" << std::endl;
     std::cout << "\n";
 }
 

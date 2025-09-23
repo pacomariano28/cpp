@@ -14,15 +14,17 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat &other) {
 
 Bureaucrat::~Bureaucrat(void) {};
 
-// --------------------------------------------------------------------------------------------------------------
+// GETTERS ------------------------------------------------------------------------------------------------------
 
 const std::string&	Bureaucrat::getName(void) const { 
-return __name; 
+	return __name; 
 }
 
 int					Bureaucrat::getGrade(void) const { 
 	return __grade; 
 }
+
+// METHODS ------------------------------------------------------------------------------------------------------
 
 void				Bureaucrat::incrementGrade(void) {
 	if (__grade <= 1)
@@ -45,7 +47,7 @@ void				Bureaucrat::signAForm(AForm& f) {
 	}
 }
 
-// --------------------------------------------------------------------------------------------------------------
+// FUNCTIONS -----------------------------------------------------------------------------------------------------
 
 int					validateGrade(int grade) {
 	if (grade < 1)
@@ -61,3 +63,4 @@ std::ostream&		operator<<(std::ostream& out, const Bureaucrat& b) {
 	out << b.getName() << " , bureaucrat grade " << b.getGrade();
 	return out;
 }
+

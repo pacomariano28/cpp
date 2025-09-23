@@ -6,7 +6,7 @@
 /*   By: frmarian <frmarian@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 12:27:56 by frmarian          #+#    #+#             */
-/*   Updated: 2025/08/14 14:01:12 by frmarian         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:07:49 by frmarian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 PhoneBook::PhoneBook() : __contactCount(0) {}
 
-static std::string format_field(const std::string& str) {
+static std::string AFormat_field(const std::string& str) {
     if (str.length() > 10)
         return (str.substr(0, 9) + ".");
     return (str);
@@ -52,9 +52,9 @@ void	PhoneBook::showContacts() const {
 
     while (i < end) {
         std::cout << "\033[1;36m│\033[1;37m" << std::setw(10) << i + 1 << "\033[1;36m│\033[1;37m"
-            << std::setw(10) << format_field(__contacts[i].getFirstName()) << "\033[1;36m│\033[1;37m"
-            << std::setw(10) << format_field(__contacts[i].getLastName()) << "\033[1;36m│\033[1;37m"
-            << std::setw(10) << format_field(__contacts[i].getNickname()) << "\033[1;36m│\033[0m" << std::endl;
+            << std::setw(10) << AFormat_field(__contacts[i].getFirstName()) << "\033[1;36m│\033[1;37m"
+            << std::setw(10) << AFormat_field(__contacts[i].getLastName()) << "\033[1;36m│\033[1;37m"
+            << std::setw(10) << AFormat_field(__contacts[i].getNickname()) << "\033[1;36m│\033[0m" << std::endl;
         i++;
     }
     
