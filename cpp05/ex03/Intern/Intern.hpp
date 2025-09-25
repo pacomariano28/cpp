@@ -7,14 +7,14 @@ class AForm;
 
 class Intern {
 	private:
-		static AForm* createShrubberyForm(const std::string& target);
-		static AForm* createRobotomyForm(const std::string& target);
-		static AForm* createPresidentialForm(const std::string& target);
-
 		struct FormInfo {
         	std::string name;
-			AForm* (*creator)(const std::string& target);
+			AForm* (Intern::*creator)(const std::string& target);
 		};
+
+		AForm* createShrubberyForm(const std::string& target);
+		AForm* createRobotomyForm(const std::string& target);
+		AForm* createPresidentialForm(const std::string& target);
 
 	public:
 		Intern(void);

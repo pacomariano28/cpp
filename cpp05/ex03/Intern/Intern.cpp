@@ -1,11 +1,10 @@
+#include <iostream>
+#include <cctype>
 #include "Intern.hpp"
 #include "../AForm/AForm.hpp"
 #include "../Forms/ShrubberyCreationForm/ShrubberyCreationForm.hpp"
 #include "../Forms/RobotomyRequestForm/RobotomyRequestForm.hpp"
 #include "../Forms/PresidentialPardonForm/PresidentialPardonForm.hpp"
-#include <iostream>
-#include <algorithm>
-#include <cctype>
 
 // COF ---------------------------------------------------------------------------------------------------------------------
 
@@ -42,7 +41,9 @@ AForm* Intern::createPresidentialForm(const std::string& target){
 AForm*	Intern::makeForm(const std::string formName, const std::string target) {
 	
 	std::string lowerFormName = formName;
-	std::transform(lowerFormName.begin(), lowerFormName.end(), lowerFormName.begin(), ::tolower);
+	for (size_t i = 0; i < lowerFormName.length(); i++) {
+        lowerFormName[i] = ::tolower(lowerFormName[i]);
+    }
 
 	FormInfo forms[] = {
 		{"shrubbery creation", &Intern::createShrubberyForm}, 
@@ -53,7 +54,7 @@ AForm*	Intern::makeForm(const std::string formName, const std::string target) {
 	for(int i = 0; i < 3; i++) {
 		if (forms[i].name == lowerFormName) {
 			std::cout << "Intern creates " << lowerFormName << std::endl;
-			return forms[i].creator(target); 
+			return (this->*forms[i].creator)(target); 
 		}
 	}
 
