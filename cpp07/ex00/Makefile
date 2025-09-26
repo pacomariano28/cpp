@@ -12,7 +12,6 @@ OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
 # ================== #
 
 SRC =	main.cpp \
-		ScalarConverter/ScalarConverter.cpp
 
 
 # ================= #

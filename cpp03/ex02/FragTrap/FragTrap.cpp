@@ -4,7 +4,8 @@ FragTrap::FragTrap(void) : ClapTrap() {
     std::cout << "Fragtrap " << __name << " created" << std::endl;
 }
 
-FragTrap::FragTrap(const std::string &name) : ClapTrap(name) {
+FragTrap::FragTrap(const std::string &name) {
+	__name = name;
 	__health = 100;
 	__energy = 100;
 	__damage = 30;
