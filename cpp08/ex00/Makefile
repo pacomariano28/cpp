@@ -2,7 +2,7 @@
 #     VARIABLES       #
 # =================== #
 
-NAME = Buro
+NAME = ex00
 COMPILE = c++
 FLAGS = -std=c++98 -Ihpp -Werror -Wall -Wextra
 OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
@@ -12,12 +12,7 @@ OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
 # ================== #
 
 SRC =	main.cpp \
-		Bureaucrat/Bureaucrat.cpp \
-		AForm/AForm.cpp \
-		Forms/PresidentialPardonForm/PresidentialPardonForm.cpp \
-		Forms/RobotomyRequestForm/RobotomyRequestForm.cpp \
-		Forms/ShrubberyCreationForm/ShrubberyCreationForm.cpp \
-		Intern/Intern.cpp
+
 
 # ================= #
 #     TARGETS       #

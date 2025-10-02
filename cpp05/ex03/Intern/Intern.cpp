@@ -10,10 +10,10 @@
 
 	Intern::Intern(void) {}
 
-	Intern::Intern(const Intern& other) : Intern() {
+/* 	Intern::Intern(const Intern& other) : Intern() {
 		(void)other;
-	}
-	
+	} */
+
 	Intern& Intern::operator=(const Intern& other) {
 		(void)other;
 		return *this;
