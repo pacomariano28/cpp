@@ -36,5 +36,5 @@ void	BitcoinExchange::loadData(std::string& fileName) {
 		double		value	= std::atof(line.substr(pos, line.length()).c_str());
 
 		_// tengo que limpiar los posibles espacios en blanco de cada valor / fecha y además comprobar que el valor no sea > 1k
-	};
+	}
 }
