@@ -2,7 +2,7 @@
 #     VARIABLES       #
 # =================== #
 
-NAME = ex01
+NAME = ex02
 COMPILE = c++
 FLAGS = -std=c++98 -Ihpp -Werror -Wall -Wextra
 OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
@@ -12,7 +12,7 @@ OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
 # ================== #
 
 SRC =	main.cpp \
-		Span/Span.cpp
+		
 
 
 # ================= #
