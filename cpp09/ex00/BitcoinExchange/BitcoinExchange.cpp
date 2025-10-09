@@ -8,6 +8,7 @@ BitcoinExchange::BitcoinExchange(std::string& file) {
 		loadData(file);
 	} catch(std::runtime_error& e) {
 		std::cout << e.what() << std::endl;
+		exit(EXIT_FAILURE);
 	}
 }
 
