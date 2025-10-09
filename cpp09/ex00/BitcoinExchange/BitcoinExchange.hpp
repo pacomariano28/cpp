@@ -10,10 +10,10 @@ class BitcoinExchange {
 	private:
 		std::map<std::string, float> _rates;
 
-		void	loadData(void);
+		void	loadData(char * DBFile);
 
 	public:
-		BitcoinExchange(std::string& file);
+		BitcoinExchange(char * inputFile);
 		~BitcoinExchange(void);
 };
 
