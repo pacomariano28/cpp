@@ -4,16 +4,22 @@
 #include <map>
 #include <string>
 
-#define BITCOIN_DB	= "../Data/data.csv"
+#define BITCOIN_DB "Data/data.csv"
+
+enum FileType {
+    INPUT_FILE = ',',
+    DDBB_FILE = '|'
+};
 
 class BitcoinExchange {
 	private:
 		std::map<std::string, float> _rates;
+		std::map<std::string, float> _input;
 
-		void	loadData(char * DBFile);
+		void	loadData(const char* file, FileType type, std::map<std::string, float>& container);
 
 	public:
-		BitcoinExchange(char * inputFile);
+		BitcoinExchange(std::string& inputFile);
 		~BitcoinExchange(void);
 };
 
