@@ -47,6 +47,38 @@ static bool isValidDate(const std::string& date) {
 	return (value >= 0 && value <= 1000);
 } */
 
+static std::string trim(const std::string& str) {
+    std::string result = str;
+    // Eliminar espacios al principio
+    while (!result.empty() && (result[0] == ' ' || result[0] == '\t'))
+        result.erase(0, 1);
+    // Eliminar espacios al final
+    while (!result.empty() && (result[result.size() - 1] == ' ' || result[result.size() - 1] == '\t'))
+        result.erase(result.size() - 1, 1);
+    return result;
+}
+
+static bool isValidValue(float value, FileType type) {
+    if (type == INPUT_FILE) {
+        if (value > 1000) {
+            std::cout << "Error: too large a number." << std::endl;
+            return false;
+        }
+        if (value < 0) {
+            std::cout << "Error: not a positive number." << std::endl;
+            return false;
+        }
+        return true;
+    }
+	
+    if (type == DDBB_FILE) {
+        if (value < 0)
+            throw std::runtime_error("Error: negative value in database.");
+        return true;
+    }
+    return false;
+}
+
 void	BitcoinExchange::loadData(const char* file, FileType type, std::map<std::string, float>& container) {
 	std::ifstream fileStream(file);
 
@@ -65,24 +97,17 @@ void	BitcoinExchange::loadData(const char* file, FileType type, std::map<std::st
 		if (pos == std::string::npos)
 			throw std::runtime_error("Error: bad format in database line: " + line);
 
-		date = line.substr(0, pos);
-		
-		// Eliminar espacios al principio
-		while (!date.empty() && (date[0] == ' ' || date[0] == '\t'))
-			date.erase(0, 1);
-		
-		// Eliminar espacios al final
-		while (!date.empty() && (date[date.size() - 1] == ' ' || date[date.size() - 1] == '\t'))
-			date.erase(date.size() - 1, 1);
+		date = trim(line.substr(0, pos));
+		value = atof(line.substr(pos + 1).c_str());
 
-		value 	= atof(line.substr(pos + 1).c_str());
+		std::cout << "value: " << value << std::endl;
 
 		if (!isValidDate(date))
-			throw std::runtime_error("Error: no valid date format on database line: " + line);
+			throw std::runtime_error("Error: no valid date format on input line: " + line);
 
-		// el problema que tengo ahora es que si falla leyendo el input sigue, no tiene que hacer throw.
-		if ((type == INPUT_FILE && value > 1000) && (value == 0 )
-			throw std::runtime_error("Error: no valid btc value on database line " + line);
+		if (!isValidValue(value, type)){
+			continue;
+		}
 
 		container[date] = value;
 	}
