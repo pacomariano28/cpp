@@ -32,25 +32,24 @@ void processOperation(std::string& token, std::stack<int>& rpnStack) {
         std::cerr << NOT_ENOUGH_NUMBERS << std::endl;
         exit(EXIT_FAILURE);
     }
-    
+
     int b = rpnStack.top();
     rpnStack.pop();
 
     int a = rpnStack.top();
     rpnStack.pop();
 
-    if (token == "+")
-        rpnStack.push(a + b);
-    else if (token == "-")
-        rpnStack.push(a - b);
-    else if (token == "*")
-        rpnStack.push(a * b);
-    else if (token == "/") {
-        if (b == 0) {
-            std::cerr << DIVISOR_0 << std::endl;
-            exit(EXIT_FAILURE);
-        }
-        rpnStack.push(a / b);
+    switch(token[0]) {
+        case '+': rpnStack.push(a + b); break;
+        case '-': rpnStack.push(a - b); break;
+        case '*': rpnStack.push(a * b); break;
+        case '/':
+            if (b == 0) {
+                std::cerr << DIVISOR_0 << std::endl;
+                exit(EXIT_FAILURE);
+            }
+            rpnStack.push(a / b);
+            break;
     }
 }
 
