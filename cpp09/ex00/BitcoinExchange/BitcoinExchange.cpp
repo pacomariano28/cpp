@@ -149,7 +149,7 @@ ParsedLine BitcoinExchange::parseLine(const std::string& line, char separator) c
     }
     
     result.date = trimWhitespace(line.substr(0, pos));
-    
+
     bool parseSuccess;
     result.value = parseFloat(trimWhitespace(line.substr(pos + 1)), parseSuccess);
     result.isValid = parseSuccess;
@@ -194,7 +194,7 @@ void BitcoinExchange::processInputLine(const std::string& line) {
     }
     
     if (!isValidInputValue(parsed.value)) {
-        return; // Error already displayed
+        return;
     }
     
     float rate = findRate(parsed.date);
