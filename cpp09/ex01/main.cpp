@@ -67,12 +67,9 @@ int main(int ac, char** av) {
     while (iss >> token) {
 
         switch(tokenType(token)) {
-            case NUMBER:    rpnStack.push(std::atoi(token.c_str()));
-                break;
-            case OPERATOR:  processOperation(token, rpnStack);
-                break;
-            case INVALID:   std::cerr << INVALID_ARG << std::endl;
-                return EXIT_FAILURE;
+            case NUMBER: 	rpnStack.push(std::atoi(token.c_str())); 	break;
+            case OPERATOR: 	processOperation(token, rpnStack); 			break;
+            case INVALID:   std::cerr << INVALID_ARG << std::endl; 		return EXIT_FAILURE;
         }
 
     }
@@ -81,7 +78,7 @@ int main(int ac, char** av) {
         std::cerr << MORE_ARGS_LEFT << std::endl;
         return EXIT_FAILURE;
     }
-    
+
     std::cout << rpnStack.top() << std::endl;
 
     return 0;

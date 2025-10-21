@@ -24,6 +24,8 @@ class Bureaucrat {
 	public:
 		Bureaucrat(void) : __name("Rookie") , __grade(150) {}
 
+		Bureaucrat(const char* str, const int grade) : __name(str ? str : "default"), __grade(validateGrade(grade)) {}
+
 		Bureaucrat(const std::string name, const int grade) 
 			: __name(name) , __grade(validateGrade(grade)) {}
 

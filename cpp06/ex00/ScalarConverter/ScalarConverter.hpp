@@ -5,10 +5,10 @@
 #include <exception>
 
 enum TypeIdentifier {
-    CHAR_TYPE = 0,
-    INT_TYPE = 1,
-    FLOAT_TYPE = 2,
-    DOUBLE_TYPE = 3
+    CHAR_TYPE, 
+    INT_TYPE, 
+    FLOAT_TYPE, 
+    DOUBLE_TYPE
 };
 
 class ScalarConverter {
