@@ -2,7 +2,7 @@
 #     VARIABLES       #
 # =================== #
 
-NAME = PmergeMe
+NAME = Pmergeme
 COMPILE = c++
 FLAGS = -std=c++98 -Ihpp -Werror -Wall -Wextra
 OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
@@ -12,6 +12,7 @@ OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
 # ================== #
 
 SRC =	main.cpp \
+		PmergeMe/PmergeMe.cpp
 
 
 # ================= #

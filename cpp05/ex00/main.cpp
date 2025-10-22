@@ -3,7 +3,7 @@
 int main() {
 
 	std::cout << "\n" << std::endl;
-	Bureaucrat manolo(NULL, 500);
+	Bureaucrat manolo(NULL, 150);
     try {
         Bureaucrat rookie; // default
         Bureaucrat john("John", 42); // personalizado
