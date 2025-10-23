@@ -2,6 +2,14 @@
 
 #include <exception>
 
+#define DIFF_PARAMS 	"Error: diff params. Usage ./PmergeMe <int1> <int2> ..."
+#define NEGATIVE_NUMBER "Error: negative number found."
+#define OUT_OF_RANGE	"Error: number out of range."
+#define INVALID_NUMBER	"Error: invalid number."
+
+
+
+
 class PmergeMeException : public std::exception {
 	public:
 		virtual const char* what() const throw() = 0; // pura virtual
@@ -10,27 +18,27 @@ class PmergeMeException : public std::exception {
 class DiffParams : public PmergeMeException {
 	public:
 		const char* what() const throw() {
-			return "Error: diff params. Usage ./PmergeMe <int1> <int2> ...";
+			return DIFF_PARAMS;
 		}
 };
 
 class NegativeNumber : public PmergeMeException {
 	public:
 		const char* what() const throw() {
-			return "Error: negative number found.";
+			return NEGATIVE_NUMBER;
 		}
 };
 
 class OutOfRange : public PmergeMeException {
 	public:
 		const char* what() const throw() {
-			return "Error: number out of range.";
+			return OUT_OF_RANGE;
 		}
 };
 
 class InvalidNumber : public PmergeMeException {
 	public:
 		const char* what() const throw() {
-			return "Error: invalid number.";
+			return INVALID_NUMBER;
 		}
 };
