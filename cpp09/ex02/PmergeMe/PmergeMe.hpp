@@ -6,6 +6,8 @@
 
 #include "../Exceptions/PmergeMeExceptions.hpp"
 
+#define THRESHOLD 10;
+
 class PmergeMe {
 	public:
 		PmergeMe(int ac, char **av);
@@ -21,6 +23,7 @@ class PmergeMe {
 	void	fordJohnsonVec(std::vector<int>& vec, size_t left, size_t right);
 	void	fordJohnsonDeq(std::deque<int>& deq, size_t left, size_t right);
 	void	insertionSortVec(std::vector<int>& vec, size_t left, size_t right);
+	void	fordJohnsonAux(std::vector<int>& data);
 /* 	template<typename Container>
 	void	PmergeMe::fordJohnson(Container& arr); */
 };

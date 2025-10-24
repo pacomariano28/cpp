@@ -47,38 +47,81 @@ void PmergeMe::printData() const{
 }
 
 void	PmergeMe::insertionSortVec(std::vector<int>& vec, size_t left, size_t right) {
-	// esta wea tiene que hacer las comparaciones de:
 
-	/*
-	
-		[9,2,3,5] -> key: 1 value: 2
+}
 
-		(actual < anterior) ? [9,9,3,5] -> sustituimos la key actual con el valor anterior
+void	PmergeMe::fordJohnsonAux(std::vector<int>& data) {
+	size_t size = data.size();
 
-		- ahora le decimos, 
-	
-	*/
+	if (size <= 1)
+		return;
+
+	std::vector<int> winners, losers;
+	bool hasOddElement = false;
+	int oddElement = 0;
+
+	// Procesar pares completos
+    for (size_t i = 0; i + 1 < size; i += 2) {
+        if (data[i] > data[i + 1]) {
+            winners.push_back(data[i]);
+            losers.push_back(data[i + 1]);
+        } else {
+            winners.push_back(data[i + 1]);
+            losers.push_back(data[i]);
+        }
+    }
+
+	if (size % 2 == 1) {
+		hasOddElement = true;
+		oddElement = data[size-1];
+	}
+
+	// recursion en ganadores
+	if (!winners.empty())
+		fordJohnsonAux(winners);
+
+	// creamos la main chain con el primer perdedor seguido de los ganadores ordenados
+	std::vector<int> mainChain;
+	if (!losers.empty())
+		mainChain.push_back(losers[0]);
+
+	// copiamos el resto de winners
+	for (size_t i = 0; i < winners.size(); ++i) {
+		mainChain.push_back(winners[i]);
+	}
+
+	// HAY QUE SACAR LA SECUENCIA JACOBSTHAL QUE A SABER COMO SE HACE
+	data = mainChain;
 }
 
 
 void 	PmergeMe::fordJohnsonVec(std::vector<int>& vec, size_t left, size_t right) {
-	const size_t THREESHOLD = 10;
-	size_t elements = right - left + 1;
-	
-	if (elements <= THREESHOLD) {
-		insertionSortVec(vec, left, right);  // Llama al que SÍ tiene bucle
+	size_t size = right - left + 1;
+
+	if (size <= THRESHOLD) {
+		insertionSortVec(vec, left, right);
 		return;
 	}
 
-	// Divide
-	size_t mid = left + (right - left) / 2;
+	// TODO: Implementar los 5 pasos del Ford-Johnson
+	std::vector<int> tempData;
+	tempData.reserve(size);
 
-	// Recursión (NO bucle)
-	fordJohnsonVec(vec, left, mid);
-	fordJohnsonVec(vec, mid + 1, right);
+	for (size_t i = left; i <= right; ++i) {
+		tempData.push_back(vec[i]);
+	}
 
-	// Merge
-	mergeVec(vec, left, mid, right);
+	fordJohnsonAux(tempData);
+
+	for (size_t i = 0; i < size; ++i) {
+        vec[left + i] = tempData[i];
+    }
+
+    // Paso 1: Crear pares y encontrar ganadores/perdedores
+    // Paso 2: Recursión en ganadores
+    // Paso 3: Crear main chain
+    // Paso 4: Insertar perdedores en orden especial
+    // Paso 5: Manejar elemento suelto (si n es impar)
 }
 
 
