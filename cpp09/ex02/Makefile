@@ -4,7 +4,7 @@
 
 NAME = Pmergeme
 COMPILE = c++
-FLAGS = -std=c++98 -Ihpp -Werror -Wall -Wextra
+FLAGS = -std=c++98 -Ihpp #-Werror -Wall -Wextra
 OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
 
 # ================== #

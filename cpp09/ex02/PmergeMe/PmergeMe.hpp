@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <deque>
+#include <cstddef>
 
 #include "../Exceptions/PmergeMeExceptions.hpp"
 
@@ -18,6 +19,7 @@ class PmergeMe {
         std::vector<int>	_vecData;
         std::deque<int>		_deqData;
         std::vector<int>	_sortedVecData;
+		std::deque<int>		_sortedDeqData;
         
         // Parsing
         void parseNumbers(int ac, char **av);

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <algorithm>
 #include <ctime>
+#include <cstddef>
 
 void	PmergeMe::parseNumbers(int ac, char **av) {
     for (int i = 1; i < ac; ++i) {
@@ -124,7 +125,7 @@ void	PmergeMe::fordJohnsonAux(std::vector<int>& data) {
     for (size_t i = 0; i + 1 < size; i += 2) {
         int first = data[i];
         int second = data[i + 1];
-        
+
         // Crear par donde first = winner (mayor), second = loser (menor)
         if (first > second) {
             pairs.push_back(std::make_pair(first, second));
@@ -149,15 +150,15 @@ void	PmergeMe::fordJohnsonAux(std::vector<int>& data) {
         fordJohnsonAux(winners);
 
     // Reordenar pairs según winners ordenados
-    std::vector<std::pair<int, int> > reorderedPairs;
+    std::vector<std::pair<int, int> > orderedWinners;
     std::vector<bool> used(pairs.size(), false);
 
     for (size_t i = 0; i < winners.size(); ++i) {
         int currentWinner = winners[i];
-        
+
         for (size_t j = 0; j < pairs.size(); ++j) {
             if (!used[j] && pairs[j].first == currentWinner) {
-                reorderedPairs.push_back(pairs[j]);
+                orderedWinners.push_back(pairs[j]);
                 used[j] = true;
                 break;
             }
@@ -166,31 +167,31 @@ void	PmergeMe::fordJohnsonAux(std::vector<int>& data) {
 
     // Crear main chain
     std::vector<int> mainChain;
-    if (!reorderedPairs.empty()) {
-        mainChain.push_back(reorderedPairs[0].second);  // Primer loser
+    if (!orderedWinners.empty()) {
+        mainChain.push_back(orderedWinners[0].second);  // Primer loser
     }
 
-    for (size_t i = 0; i < reorderedPairs.size(); ++i) {
-        mainChain.push_back(reorderedPairs[i].first);   // Winners ordenados
+    for (size_t i = 0; i < orderedWinners.size(); ++i) {
+        mainChain.push_back(orderedWinners[i].first);   // Winners ordenados
     }
 
     // Insertar losers restantes usando orden Jacobsthal
-    if (reorderedPairs.size() > 1) {
-        int numLosersToInsert = reorderedPairs.size() - 1;
+    if (orderedWinners.size() > 1) {
+        int numLosersToInsert = orderedWinners.size() - 1;
         std::vector<int> jacobsthal = generateJacobsthal(numLosersToInsert);
         std::vector<int> insertionOrder = createInsertionOrder(jacobsthal, numLosersToInsert);
         
         for (size_t i = 0; i < insertionOrder.size(); ++i) {
             int loserIndex = insertionOrder[i];
-            int loserValue = reorderedPairs[loserIndex].second;
-            int winnerValue = reorderedPairs[loserIndex].first;
-            
+            int loserValue = orderedWinners[loserIndex].second;
+            int winnerValue = orderedWinners[loserIndex].first;
+
             // Encontrar posición límite del winner en mainChain
             std::vector<int>::iterator winnerPos = std::find(mainChain.begin(), mainChain.end(), winnerValue);
-            
+
             // Buscar posición de inserción usando búsqueda binaria
             std::vector<int>::iterator insertPos = std::lower_bound(mainChain.begin(), winnerPos + 1, loserValue);
-            
+
             // Insertar el loser
             mainChain.insert(insertPos, loserValue);
         }
@@ -243,7 +244,7 @@ void	PmergeMe::fordJohnsonAuxDeq(std::deque<int>& data) {
         fordJohnsonAuxDeq(winners);
 
     // Reordenar pairs según winners ordenados
-    std::vector<std::pair<int, int> > reorderedPairs;
+    std::vector<std::pair<int, int> > orderedWinners;
     std::vector<bool> used(pairs.size(), false);
 
     for (size_t i = 0; i < winners.size(); ++i) {
@@ -251,7 +252,7 @@ void	PmergeMe::fordJohnsonAuxDeq(std::deque<int>& data) {
         
         for (size_t j = 0; j < pairs.size(); ++j) {
             if (!used[j] && pairs[j].first == currentWinner) {
-                reorderedPairs.push_back(pairs[j]);
+                orderedWinners.push_back(pairs[j]);
                 used[j] = true;
                 break;
             }
@@ -260,24 +261,24 @@ void	PmergeMe::fordJohnsonAuxDeq(std::deque<int>& data) {
 
     // Crear main chain
     std::deque<int> mainChain;
-    if (!reorderedPairs.empty()) {
-        mainChain.push_back(reorderedPairs[0].second);
+    if (!orderedWinners.empty()) {
+        mainChain.push_back(orderedWinners[0].second);
     }
 
-    for (size_t i = 0; i < reorderedPairs.size(); ++i) {
-        mainChain.push_back(reorderedPairs[i].first);
+    for (size_t i = 0; i < orderedWinners.size(); ++i) {
+        mainChain.push_back(orderedWinners[i].first);
     }
 
     // Insertar losers restantes usando orden Jacobsthal
-    if (reorderedPairs.size() > 1) {
-        int numLosersToInsert = reorderedPairs.size() - 1;
+    if (orderedWinners.size() > 1) {
+        int numLosersToInsert = orderedWinners.size() - 1;
         std::vector<int> jacobsthal = generateJacobsthal(numLosersToInsert);
         std::vector<int> insertionOrder = createInsertionOrder(jacobsthal, numLosersToInsert);
         
         for (size_t i = 0; i < insertionOrder.size(); ++i) {
             int loserIndex = insertionOrder[i];
-            int loserValue = reorderedPairs[loserIndex].second;
-            int winnerValue = reorderedPairs[loserIndex].first;
+            int loserValue = orderedWinners[loserIndex].second;
+            int winnerValue = orderedWinners[loserIndex].first;
             
             std::deque<int>::iterator winnerPos = std::find(mainChain.begin(), mainChain.end(), winnerValue);
             std::deque<int>::iterator insertPos = std::lower_bound(mainChain.begin(), winnerPos + 1, loserValue);
@@ -340,31 +341,34 @@ void 	PmergeMe::fordJohnsonDeq(std::deque<int>& deq, size_t left, size_t right) 
 void PmergeMe::run() {
     // 1. Mostrar "Before:"
     std::cout << "Before: ";
-    printData();
+    //printData();
     
     // 2. Copiar datos para sorting
     _sortedVecData = _vecData;
-    std::deque<int> sortedDeqData = _deqData;
+    _sortedDeqData = _deqData;
     
     // 3. Ordenar vector y medir tiempo
     clock_t startVec = clock();
     fordJohnsonVec(_sortedVecData, 0, _sortedVecData.size() - 1);
     clock_t endVec = clock();
-    double timeVec = static_cast<double>(endVec - startVec) / CLOCKS_PER_SEC * 1000000;
+    double timeVec = static_cast<double>(endVec - startVec) * CLOCKS_PER_SEC / 100000000000;
     
     // 4. Ordenar deque y medir tiempo
     clock_t startDeq = clock();
-    fordJohnsonDeq(sortedDeqData, 0, sortedDeqData.size() - 1);
+    fordJohnsonDeq(_sortedDeqData, 0, _sortedDeqData.size() - 1);
     clock_t endDeq = clock();
-    double timeDeq = static_cast<double>(endDeq - startDeq) / CLOCKS_PER_SEC * 1000000;
+    double timeDeq = static_cast<double>(endDeq - startDeq) * CLOCKS_PER_SEC / 100000000000;
+
+	std::cout << std::endl;
     
     // 5. Mostrar "After:"
     std::cout << "After: ";
-    printSortedData();
+    //printSortedData();
     
     // 6. Mostrar tiempos
-    std::cout << "Time to process a range of " << _vecData.size() 
+	std::cout << timeDeq << std::endl;
+    /* std::cout << "Time to process a range of " << _vecData.size() 
               << " elements with std::vector : " << timeVec << " us" << std::endl;
     std::cout << "Time to process a range of " << _deqData.size() 
-              << " elements with std::deque : " << timeDeq << " us" << std::endl;
+              << " elements with std::deque : " << timeDeq << " us" << std::endl; */
 }
