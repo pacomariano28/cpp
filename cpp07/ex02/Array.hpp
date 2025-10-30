@@ -20,7 +20,7 @@ class Array {
 		const T&		operator[](unsigned int idx) const;
 		unsigned int	size() const;
 
-		class OutOfRange : std::exception {
+		class OutOfRange : public std::exception {
 			public:
 				virtual const char* what() const throw() {
 					return "index out of range!";

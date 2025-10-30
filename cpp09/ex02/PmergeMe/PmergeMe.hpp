@@ -44,6 +44,4 @@ class PmergeMe {
         std::vector<int> createInsertionOrder(const std::vector<int>& jacobsthal, int numLosers);
 };
 
-#include "PmergeMe.tpp"
-
 #endif

@@ -4,6 +4,9 @@
 #include <sstream>
 #include <cctype>
 #include <cstdlib>
+#include <climits>
+
+#include "Exceptions.hpp"
 
 enum eTokenType {
     NUMBER,
@@ -11,75 +14,105 @@ enum eTokenType {
     INVALID
 };
 
-#define INVALID_ARG         "Error: invalid argument"
-#define DIVISOR_0           "Error: cannot divide by 0"
-#define NOT_ENOUGH_NUMBERS  "Error: needed at least 2 numbers to operate"
-#define MORE_ARGS_LEFT      "Error: there is still more args to be processed"
-
 static eTokenType tokenType(const std::string& token) {
-    if (token.length() == 1 && std::isdigit(token[0])) {
-        return NUMBER;
+    
+	if (token.length() == 1 && std::isdigit(token[0]))
+		return NUMBER;
+
+    if (token.length() == 1 && (token == "+" || token == "-" || token == "*" || token == "/"))
+        return OPERATOR;
+
+    return INVALID;
+
+}
+
+static int inRange(int a, int b, char op) {
+    
+	switch (op) {
+        case '+':
+            if (b > 0 && a > INT_MAX - b) throw OutOfRangeException();
+            if (b < 0 && a < INT_MIN - b) throw OutOfRangeException();
+            return a + b;
+
+        case '-':
+            if (b < 0 && a > INT_MAX + b) throw OutOfRangeException();
+            if (b > 0 && a < INT_MIN + b) throw OutOfRangeException();
+            return a - b;
+
+        case '*':
+            if (a != 0 && (b > INT_MAX / a || b < INT_MIN / a)) throw OutOfRangeException();
+            return a * b;
+
+        case '/':
+            if (a == INT_MIN && b == -1) throw OutOfRangeException();
+            return a / b;
+
+        default: throw InvalidArgException();
     }
 
-    if (token.length() == 1 && (token == "+" || token == "-" || token == "*" || token == "/")) {
-        return OPERATOR;
-    }
-    return INVALID;
 }
 
 void processOperation(std::string& token, std::stack<int>& rpnStack) {
-    if (rpnStack.size() < 2) {
-        std::cerr << NOT_ENOUGH_NUMBERS << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    
+	if (rpnStack.size() < 2) 
+		throw LackOfNumbersException();
 
     int b = rpnStack.top();
-    rpnStack.pop();
-
+	rpnStack.pop();
+	
     int a = rpnStack.top();
-    rpnStack.pop();
+	rpnStack.pop();
 
     switch(token[0]) {
-        case '+': rpnStack.push(a + b); break;
-        case '-': rpnStack.push(a - b); break;
-        case '*': rpnStack.push(a * b); break;
+        case '+': rpnStack.push(inRange(a, b, '+')); break;
+        case '-': rpnStack.push(inRange(a, b, '-')); break;
+        case '*': rpnStack.push(inRange(a, b, '*')); break;
         case '/':
-            if (b == 0) {
-                std::cerr << DIVISOR_0 << std::endl;
-                exit(EXIT_FAILURE);
-            }
-            rpnStack.push(a / b);
+            if (b == 0) throw DivisionByZeroException();
+            rpnStack.push(inRange(a, b, '/'));
             break;
     }
 }
 
-int main(int ac, char** av) {
-    if (ac != 2) {
-        std::cerr << "Error: diff params. Usage ./RPN 'values'" << std::endl;
-        return EXIT_FAILURE;
-    }
 
-    std::stack<int> rpnStack;
-    std::string strInput = av[1];
-    std::istringstream iss(strInput);
-    std::string token;
+void calc(int ac, char** av) {
+
+	if (ac != 2)
+		throw LackOfArgumentsException();
+
+    std::stack<int> 	rpnStack;
+    std::string 		strInput(av[1]);
+    std::istringstream 	iss(strInput);
+    std::string 		token;
 
     while (iss >> token) {
 
         switch(tokenType(token)) {
             case NUMBER: 	rpnStack.push(std::atoi(token.c_str())); 	break;
             case OPERATOR: 	processOperation(token, rpnStack); 			break;
-            case INVALID:   std::cerr << INVALID_ARG << std::endl; 		return EXIT_FAILURE;
+            case INVALID:   throw InvalidArgException();
         }
 
     }
 
-    if (rpnStack.size() != 1) {
-        std::cerr << MORE_ARGS_LEFT << std::endl;
-        return EXIT_FAILURE;
-    }
+    if (rpnStack.size() != 1)
+        throw ArgsLeftException();
 
     std::cout << rpnStack.top() << std::endl;
+}
 
+
+int main(int ac, char** av) {
+
+	try  {	
+		calc(ac, av);
+	}
+	catch (LackOfArgumentsException &e) { std::cerr << e.what() << std::endl; }
+	catch (LackOfNumbersException &e) 	{ std::cerr << e.what() << std::endl; }
+	catch (InvalidArgException &e)		{ std::cerr << e.what() << std::endl; }
+	catch (DivisionByZeroException &e)	{ std::cerr << e.what() << std::endl; }
+	catch (ArgsLeftException &e)		{ std::cerr << e.what() << std::endl; }
+	catch (OutOfRangeException &e)		{ std::cerr << e.what() << std::endl; }
+	
     return 0;
 }
