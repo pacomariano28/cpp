@@ -30,24 +30,24 @@ static int inRange(int a, int b, char op) {
     
 	switch (op) {
         case '+':
-            if (b > 0 && a > INT_MAX - b) throw OutOfRangeException();
-            if (b < 0 && a < INT_MIN - b) throw OutOfRangeException();
+            if (b > 0 && a > INT_MAX - b) throw OutOfRange();
+            if (b < 0 && a < INT_MIN - b) throw OutOfRange();
             return a + b;
 
         case '-':
-            if (b < 0 && a > INT_MAX + b) throw OutOfRangeException();
-            if (b > 0 && a < INT_MIN + b) throw OutOfRangeException();
+            if (b < 0 && a > INT_MAX + b) throw OutOfRange();
+            if (b > 0 && a < INT_MIN + b) throw OutOfRange();
             return a - b;
 
         case '*':
-            if (a != 0 && (b > INT_MAX / a || b < INT_MIN / a)) throw OutOfRangeException();
+            if (a != 0 && (b > INT_MAX / a || b < INT_MIN / a)) throw OutOfRange();
             return a * b;
 
         case '/':
-            if (a == INT_MIN && b == -1) throw OutOfRangeException();
+            if (a == INT_MIN && b == -1) throw OutOfRange();
             return a / b;
 
-        default: throw InvalidArgException();
+        default: throw InvalidArg();
     }
 
 }
@@ -55,7 +55,7 @@ static int inRange(int a, int b, char op) {
 void processOperation(std::string& token, std::stack<int>& rpnStack) {
     
 	if (rpnStack.size() < 2) 
-		throw LackOfNumbersException();
+		throw LackOfNumbers();
 
     int b = rpnStack.top();
 	rpnStack.pop();
@@ -68,7 +68,7 @@ void processOperation(std::string& token, std::stack<int>& rpnStack) {
         case '-': rpnStack.push(inRange(a, b, '-')); break;
         case '*': rpnStack.push(inRange(a, b, '*')); break;
         case '/':
-            if (b == 0) throw DivisionByZeroException();
+            if (b == 0) throw DivisionByZero();
             rpnStack.push(inRange(a, b, '/'));
             break;
     }
@@ -78,7 +78,7 @@ void processOperation(std::string& token, std::stack<int>& rpnStack) {
 void calc(int ac, char** av) {
 
 	if (ac != 2)
-		throw LackOfArgumentsException();
+		throw LackOfArguments();
 
     std::stack<int> 	rpnStack;
     std::string 		strInput(av[1]);
@@ -90,13 +90,13 @@ void calc(int ac, char** av) {
         switch(tokenType(token)) {
             case NUMBER: 	rpnStack.push(std::atoi(token.c_str())); 	break;
             case OPERATOR: 	processOperation(token, rpnStack); 			break;
-            case INVALID:   throw InvalidArgException();
+            case INVALID:   throw InvalidArg();
         }
 
     }
 
     if (rpnStack.size() != 1)
-        throw ArgsLeftException();
+        throw ArgsLeft();
 
     std::cout << rpnStack.top() << std::endl;
 }
@@ -107,12 +107,12 @@ int main(int ac, char** av) {
 	try  {	
 		calc(ac, av);
 	}
-	catch (LackOfArgumentsException &e) { std::cerr << e.what() << std::endl; }
-	catch (LackOfNumbersException &e) 	{ std::cerr << e.what() << std::endl; }
-	catch (InvalidArgException &e)		{ std::cerr << e.what() << std::endl; }
-	catch (DivisionByZeroException &e)	{ std::cerr << e.what() << std::endl; }
-	catch (ArgsLeftException &e)		{ std::cerr << e.what() << std::endl; }
-	catch (OutOfRangeException &e)		{ std::cerr << e.what() << std::endl; }
+	catch (ArgsLeft &e)		    { std::cerr << e.what() << std::endl; }
+	catch (LackOfArguments &e)  { std::cerr << e.what() << std::endl; }
+	catch (InvalidArg &e)		{ std::cerr << e.what() << std::endl; }
+	catch (LackOfNumbers &e) 	{ std::cerr << e.what() << std::endl; }
+	catch (DivisionByZero &e)	{ std::cerr << e.what() << std::endl; }
+	catch (OutOfRange &e)		{ std::cerr << e.what() << std::endl; }
 	
     return 0;
 }
