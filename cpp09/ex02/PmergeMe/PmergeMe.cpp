@@ -91,13 +91,15 @@ std::vector<int> PmergeMe::generateJacobsthal(int maxValue) {
         int next = jacobsthal[jacobsthal.size()-1] + 2 * jacobsthal[jacobsthal.size()-2];
         jacobsthal.push_back(next);
     }
-    
+
     return jacobsthal;
 }
 
 std::vector<int> PmergeMe::createInsertionOrder(const std::vector<int>& jacobsthal, int numLosers) {
     std::vector<int> order;
-    
+    std::vector<bool> inserted(numLosers + 1, false);  // Trackear qué índices ya insertamos
+
+    // Insertar según Jacobsthal
     for (size_t k = 2; k < jacobsthal.size(); ++k) {
         int start = jacobsthal[k-1];
         int end = jacobsthal[k];
@@ -105,9 +107,17 @@ std::vector<int> PmergeMe::createInsertionOrder(const std::vector<int>& jacobsth
         // Insertar en orden inverso desde end hasta start+1
         for (int i = std::min(end, numLosers); i > start; --i) {
             order.push_back(i);
+            inserted[i] = true;  // Marcar como insertado
         }
     }
     
+    // Insertar los índices que NO fueron insertados (desde 1 hasta numLosers)
+    for (int i = 1; i <= numLosers; ++i) {
+        if (!inserted[i]) {
+            order.push_back(i);
+        }
+    }
+
     return order;
 }
 
@@ -363,7 +373,7 @@ void PmergeMe::run() {
     
     // 5. Mostrar "After:"
     std::cout << "After: ";
-    //printSortedData();
+    printSortedData();
     
     // 6. Mostrar tiempos
 	std::cout << timeDeq << std::endl;

@@ -15,14 +15,12 @@ int main() {
     std::cout << "shortestSpan: " << sp.shortestSpan() << std::endl;
     std::cout << "longestSpan: " << sp.longestSpan() << std::endl;
 
-    // Prueba de excepción por overflow
     try {
         sp.addNumber(42);
     } catch (std::exception& e) {
         std::cout << "Excepción: " << e.what() << std::endl;
     }
 
-    // Prueba con muchos números usando addNumbers
     Span bigSpan(10000);
     std::vector<int> v;
     for (int i = 0; i < 10000; ++i)
@@ -32,7 +30,6 @@ int main() {
     std::cout << "bigSpan shortest: " << bigSpan.shortestSpan() << std::endl;
     std::cout << "bigSpan longest: " << bigSpan.longestSpan() << std::endl;
 
-    // Prueba de excepción por falta de elementos
     Span emptySpan(1);
     emptySpan.addNumber(42);
     try {

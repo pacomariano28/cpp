@@ -95,6 +95,9 @@ void calc(int ac, char** av) {
 
     }
 
+	if (token.empty())
+		throw LackOfArguments();
+	
     if (rpnStack.size() != 1)
         throw ArgsLeft();
 
@@ -107,12 +110,24 @@ int main(int ac, char** av) {
 	try  {	
 		calc(ac, av);
 	}
-	catch (ArgsLeft &e)		    { std::cerr << e.what() << std::endl; }
-	catch (LackOfArguments &e)  { std::cerr << e.what() << std::endl; }
-	catch (InvalidArg &e)		{ std::cerr << e.what() << std::endl; }
-	catch (LackOfNumbers &e) 	{ std::cerr << e.what() << std::endl; }
-	catch (DivisionByZero &e)	{ std::cerr << e.what() << std::endl; }
-	catch (OutOfRange &e)		{ std::cerr << e.what() << std::endl; }
+	catch ( LackOfArguments &e ) {
+		std::cerr << e.what() << std::endl; 
+	}
+	catch ( ArgsLeft &e ) {
+		std::cerr << e.what() << std::endl; 
+	}
+	catch ( InvalidArg &e ) {
+		std::cerr << e.what() << std::endl; 
+	}
+	catch ( LackOfNumbers &e ) {
+		std::cerr << e.what() << std::endl; 
+	}
+	catch ( DivisionByZero &e ) {
+		std::cerr << e.what() << std::endl; 
+	}
+	catch ( OutOfRange &e )	{
+		std::cerr << e.what() << std::endl; 
+	}
 	
     return 0;
 }

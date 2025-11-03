@@ -171,9 +171,9 @@ void BitcoinExchange::displayError(const char* errorMsg, const std::string& cont
 void BitcoinExchange::processInputFile(const std::string& filename) {
     std::ifstream fileStream(filename.c_str());
     validateFileOpen(fileStream, ERROR_COULD_NOT_OPEN);
-    
+
     skipHeader(fileStream);
-    
+
     std::string line;
     while (std::getline(fileStream, line)) {
         processInputLine(line);

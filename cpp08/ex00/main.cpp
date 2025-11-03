@@ -11,14 +11,14 @@ int main() {
 
     try {
         std::vector<int>::iterator it = easyfind(v, 20);
-        std::cout << "Encontrado en vector: " << *it << std::endl;
+        std::cout << "Found in vector: " << *it << std::endl;
     } catch (std::exception& e) {
         std::cout << "Vector: " << e.what() << std::endl;
     }
 
     try {
         std::vector<int>::iterator it = easyfind(v, 42);
-        std::cout << "Encontrado en vector: " << *it << std::endl;
+        std::cout << "Found in vector: " << *it << std::endl;
     } catch (std::exception& e) {
         std::cout << "Vector: " << e.what() << std::endl;
     }
@@ -29,14 +29,14 @@ int main() {
 
     try {
         std::list<int>::iterator it = easyfind(l, 200);
-        std::cout << "Encontrado en list: " << *it << std::endl;
+        std::cout << "Found in list: " << *it << std::endl;
     } catch (std::exception& e) {
         std::cout << "List: " << e.what() << std::endl;
     }
 
     try {
         std::list<int>::iterator it = easyfind(l, 999);
-        std::cout << "Encontrado en list: " << *it << std::endl;
+        std::cout << "Found in list: " << *it << std::endl;
     } catch (std::exception& e) {
         std::cout << "List: " << e.what() << std::endl;
     }
