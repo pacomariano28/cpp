@@ -7,12 +7,21 @@
 
 #define BITCOIN_DB "Data/data.csv"
 
+struct Date {
+	int day;
+	int month;
+	int year;
+	std::string err_msg;
+
+	Date() : day(0), month(0), year(0), err_msg("") {}
+};
+
 struct ParsedLine {
-    std::string date;
-    float value;
-    bool isValid;
+    Date	date;
+    float	value;
+    std::string err_msg;
     
-    ParsedLine() : value(0.0f), isValid(false) {}
+    ParsedLine() : value(0.0f), err_msg(""), date() {}
 };
 
 class BitcoinExchange {
@@ -22,10 +31,12 @@ class BitcoinExchange {
 
 	private:
 		std::map<std::string, float> _rates;
+
+		Date getDate(const std::string& line);
 		
 		// File processing methods
 		void processInputFile(const std::string& filename);
-		void processInputLine(const std::string& line);
+		void processInputLine(std::string& line);
 		void loadDatabase();
 		void loadDatabaseLine(const std::string& line);
 		
@@ -33,9 +44,10 @@ class BitcoinExchange {
 		bool isValidDateFormat(const std::string& date) const;
 		bool isValidDateComponents(const std::string& date) const;
 		bool isNumericString(const std::string& str, size_t expectedLength) const;
-		bool isValidDateRange(const std::string& monthStr, const std::string& dayStr) const;
+		bool isValidDateRange(const Date& date) const;
 		bool isValidInputValue(float value) const;
-		bool isValidDatabaseValue(float value) const;
+		bool isFutureDate(const std::string& date) const;
+		//bool isValidDatabaseValue(float value) const;
 		
 		// Utility methods
 		std::string trimWhitespace(const std::string& str) const;
@@ -45,10 +57,10 @@ class BitcoinExchange {
 		ParsedLine parseLine(const std::string& line, char separator) const;
 		
 		// Helper methods
-		void validateFileOpen(const std::ifstream& fileStream, const char* errorMsg) const;
+		//void validateFileOpen(const std::ifstream& fileStream, const char* errorMsg) const;
 		void skipHeader(std::ifstream& fileStream) const;
 		void displayResult(const std::string& date, float value, float rate) const;
-		void displayError(const char* errorMsg, const std::string& context = "") const;
+		void displayError(std::string& err_msg, const std::string& context = "") const; // huh?
 		
 		// Rate finding
 		float findRate(const std::string& date) const;

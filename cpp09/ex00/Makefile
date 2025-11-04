@@ -12,7 +12,8 @@ OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
 # ================== #
 
 SRC =	main.cpp \
-		BitcoinExchange/BitcoinExchange.cpp
+		BitcoinExchange/copy.cpp \
+		Exceptions/Exceptions.cpp
 
 
 # ================= #
