@@ -1,4 +1,4 @@
-/* #include "BitcoinExchange.hpp"
+#include "BitcoinExchange.hpp"
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
@@ -235,4 +235,4 @@ void BitcoinExchange::loadDatabaseLine(const std::string& line) {
         throw std::runtime_error(ERROR_NOT_POSITIVE);
     
     _rates[parsed.date] = parsed.value;
-} */
+}
