@@ -14,13 +14,13 @@ static const int 	MAX_MONTH = 12;
 static const int 	MIN_DAY = 1;
 static const int 	MAX_DAY = 31;
 
-static const size_t YEAR_LENGTH = 4;
 static const size_t YEAR_POS = 0;
-static const size_t DATE_LENGTH = 10;
-static const size_t MONTH_LENGTH = 2;
+static const size_t YEAR_LENGTH = 4;
 static const size_t MONTH_POS = 5;
-static const size_t DAY_LENGTH = 2;
+static const size_t MONTH_LENGTH = 2;
 static const size_t DAY_POS = 8;
+static const size_t DAY_LENGTH = 2;
+static const size_t DATE_LENGTH = 10;
 
 
 
@@ -90,15 +90,16 @@ float BitcoinExchange::getValue(const std::string& valueStr, Type type) {
 
 	if (value < 0)
 		throw IN_NotPositiveNumber();
-	
-	if (value > MAX_VALUE && type == INPUT)
+
+	if (type == INPUT && value > MAX_VALUE)
 		throw IN_OutOfRange();
 
     return value;
 }
 
 Date BitcoinExchange::getDate(const std::string& dateStr) {
-    if (dateStr.length() != DATE_LENGTH || dateStr[4] != '-' || dateStr[7] != '-')
+    
+	if (dateStr.length() != DATE_LENGTH || dateStr[4] != '-' || dateStr[7] != '-')
 		throw IN_BadDate();
 
 	Date date;
@@ -183,8 +184,7 @@ void BitcoinExchange::loadDatabase() {
 		throw DB_NotOpen();
 
     std::string line;
-	while (line.empty())
-    	std::getline(fileStream, line);
+	std::getline(fileStream, line);
 
     while (std::getline(fileStream, line)) {
 
