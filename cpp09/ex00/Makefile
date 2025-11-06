@@ -4,7 +4,7 @@
 
 NAME = btc
 COMPILE = c++
-FLAGS = -std=c++98 -Ihpp -Werror -Wall -Wextra
+FLAGS = -std=c++98 -Ihpp #-Werror -Wall -Wextra
 OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
 
 # ================== #
@@ -12,9 +12,7 @@ OBJ = $(addprefix obj/, $(SRC:.cpp=.o))
 # ================== #
 
 SRC =	main.cpp \
-		BitcoinExchange/copy.cpp \
-		Exceptions/Exceptions.cpp
-
+		BitcoinExchange/BitcoinExchange.cpp \
 
 # ================= #
 #     TARGETS       #

@@ -4,15 +4,22 @@
 int main(int ac, char** av) {
 
 	if (ac != 2) {
-		std::cout << "Error: could not open file." << std::endl;
+		std::cerr << "Error: could not open file." << std::endl;
 		return 1;
 	}
-
+	
 	try {
-		BitcoinExchange btc(av[1]);	
-	} catch ( IN_NotOpen& e ) {
-		std::cout << e.what() << std::endl;
-	}
+
+		BitcoinExchange btc(av[1]);
+
+	} catch(const DB_NotOpen& e) {
+        std::cerr << e.what() << std::endl;
+        return (1);
+
+    } catch(const IN_NotOpen& e) {
+        std::cerr << e.what() << std::endl;
+        return (1);
+    }
 
 	return 0;
 }

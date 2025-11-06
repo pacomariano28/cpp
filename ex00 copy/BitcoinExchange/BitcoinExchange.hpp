@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 #include <fstream>
-#include "../Exceptions/Exceptions.hpp"
+#include "../Exceptions.hpp"
 
 #define BITCOIN_DB "Data/data.csv"
 
@@ -25,9 +25,8 @@ struct Line {
     Date	date;
     float	value;
 	Type 	type;	
-    std::string err_msg;
     
-    Line() : date(), value(0.0f), type(DB), err_msg("") {}
+    Line() : date(), value(0.0f), type(DB) {}
 };
 
 class BitcoinExchange {
@@ -39,7 +38,9 @@ class BitcoinExchange {
 		std::map<std::string, float> _rates;
 
 		void	loadDatabase(void);
+		void	processInput(const std::string& inputFile);
+		Line 	parseLine(const std::string& line, Type type);
 		Date 	getDate(const std::string& line);
-		
-		
+		float	getValue(const std::string& line, Type type);
+		void	findRate(const Line& parsedLine);
 };

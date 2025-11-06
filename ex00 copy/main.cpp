@@ -12,11 +12,11 @@ int main(int ac, char** av) {
 
 		BitcoinExchange btc(av[1]);
 
-	} catch(const DB_BadInput& e) {
+	} catch(const DB_NotOpen& e) {
         std::cerr << e.what() << std::endl;
         return (1);
-		
-    } catch(const DB_NotOpen& e) {
+
+    } catch(const IN_NotOpen& e) {
         std::cerr << e.what() << std::endl;
         return (1);
     }
